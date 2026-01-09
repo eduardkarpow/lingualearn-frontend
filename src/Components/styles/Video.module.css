@@ -1,0 +1,19 @@
+.container {
+    width: 100vw;
+    display: flex;
+}
+.player {
+    width: 80vw !important;
+    height: auto !important;
+}
+.subtitles {
+    width: 20vw;
+    background-color: black;
+    border: 2px solid white;
+}
+.subtitles__item {
+    color: white;
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+}

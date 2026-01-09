@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles/Videos.module.css";
+import { Link } from "react-router-dom";
 
 const VideosComponent = () => {
     type vid = {
@@ -37,15 +38,15 @@ const VideosComponent = () => {
     }, [])
 
     return (
-        <a className={styles.container} href="#">
+        <div className={styles.container}>
             {videos.map(video => {
-                return <div className={styles.video} key={video.id}>
+                return <Link className={styles.video} key={video.id} to={`/video/${video.id}`}>
                     <div className={styles.image}><img src={video.thumbnail_url.replace('minio', 'localhost')} alt={video.title}/></div>
                     <h4>{formatDuration(video.duration)}</h4>
                     <h5>{video.title}</h5>
-                </div>
+                </Link>
             })}
-        </a>
+        </div>
     )
 }
 
