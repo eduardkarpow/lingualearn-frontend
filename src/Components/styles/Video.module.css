@@ -6,6 +6,9 @@
     width: 80vw !important;
     height: auto !important;
 }
+.wrapper {
+    height: 100vh;
+}
 .subtitles {
     width: 20vw;
     background-color: black;
