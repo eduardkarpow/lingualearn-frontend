@@ -9,7 +9,22 @@ const SubtitlesComponent = (props: {videoId: string, currentTime: number}) => {
     
     const [subs, setSubs] = useState<Array<sub>>([]);
     const [hovered, setHovered] = useState<number>(-1);
+    const [shift, setShift] = useState<number>(0);
     const itemRefs = useRef<HTMLDivElement[]>([]);
+
+    const shiftSubs = (e:any) => {
+        e.preventDefault();
+        fetch(`http://localhost:8000/api/v1/sub/shift`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                shift: shift,
+                videoId: props.videoId
+            })
+        });
+    }
 
     useEffect(() => {
         fetch(`http://localhost:8000/api/v1/sub/${props.videoId}`).then(res => res.json()).then(res => setSubs(res));
@@ -28,7 +43,8 @@ const SubtitlesComponent = (props: {videoId: string, currentTime: number}) => {
     }, [props.currentTime, subs]);
 
     return (
-        <div className={styles.subtitles}>
+        <div className={styles.wrapper}>
+            <div className={styles.subtitles}>
             {subs.map((sub, index) => {
                 const isActive = props.currentTime >= sub.start && 
                                (subs[index + 1] ? props.currentTime < subs[index+1].start : true);
@@ -46,7 +62,13 @@ const SubtitlesComponent = (props: {videoId: string, currentTime: number}) => {
                     </div>
                 )
             })}
+            </div>
+            <div className={styles.shift}>
+                <input type="text" value={shift} onChange={e => setShift(Number(e.target.value))}/>
+                <button className={styles.shiftButton} onClick={shiftSubs}>Shift Subs</button>
+            </div>
         </div>
+        
     )
 }
 export default SubtitlesComponent;
