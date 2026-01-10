@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import videojs from "video.js";
 import 'video.js/dist/video-js.css';
 import styles from "./styles/Video.module.css";
+import SubtitlesComponent from "./SubtitlesComponent";
 
 const VideoComponent = () => {
     const {id} = useParams();
@@ -45,11 +46,7 @@ const VideoComponent = () => {
                     setCurrentTime(Math.floor(e.target.currentTime))
                 }}
                 />
-            <div className={styles.subtitles}>
-                <div className={styles.subtitles__item}>{currentTime}</div>
-                <div className={styles.subtitles__item}>123123asdasdsadasdasdasd</div>
-                <div className={styles.subtitles__item}>123123asdasdsadasdasdasd</div>
-            </div>
+            <SubtitlesComponent videoId={id ?? ''} currentTime={currentTime}/>
         </div>
     )
 }
